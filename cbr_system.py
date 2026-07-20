@@ -103,12 +103,13 @@ def get_new_case():
     return new_case
 
 
-def calculate_similarity(new_case, case):
+def calculate_similarity(new_case, case_base):
     score = 0
-    if new_case.get("course") == case.get("Course"):
-        score += 1
-    if new_case.get("course_department") == case.get("Course Department"):
-        score += 2
+    for case in case_base:
+        if new_case.get("course") == case.get("Course"):
+            score += 1
+        if new_case.get("course_department") == case.get("Course Department"):
+            score += 2
     if new_case.get("assignment_submission_status") == case.get("Assignment Submission Status"):
         score += 3
     if new_case.get("test_performance") == case.get("Test Performance"):
@@ -132,5 +133,5 @@ def retrieve_best_case(new_case, case_base):
             best_case = case
     return best_case, best_score
 
-
+similarity_percentage = (best_score / 16) * 100 if best_score != -1 else 0
 
